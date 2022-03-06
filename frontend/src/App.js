@@ -16,7 +16,8 @@ const App = () => {
       content: todo.content
     }); // req.body.content
 
-    setTodos((prevState) => [...prevState, todo]);
+    // setTodos((prevState) => [...prevState, todo]);
+    window.location.reload(true);
   };
 
   const fetchTodos = async () => {
@@ -28,10 +29,10 @@ const App = () => {
   };
 
   const editTodo = async (id, newContent) => {
-    await axios.patch(`http://localhost:4000/api/v1/todos`, {
+    await axios.patch(`http://localhost:4000/api/v1/todos/${id}`, {
       content: newContent
     });
-
+    /*
     setTodos((prevState) => {
       const currentTodos = prevState;
 
@@ -44,19 +45,20 @@ const App = () => {
       currentTodos[todoIndex] = updatedTodo;
 
       return [...currentTodos];
-    });
+    });*/
   };
 
   const deleteTodo = async (id) => {
-    await axios.delete(`http://localhost:4000/`);
-
+    await axios.delete(`http://localhost:4000/api/v1/todos/${id}`);
+    /*
     setTodos((prevState) => {
       const currentTodos = prevState;
 
       const updatedTodos = currentTodos.filter((todo) => +todo.id !== +id);
 
       return [...updatedTodos];
-    });
+    });*/
+    window.location.reload(true);
   };
 
   // When component is mounted, fetch todos
