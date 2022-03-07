@@ -5,7 +5,7 @@ import Button from '../UI/button/button.component';
 
 import classes from './form.styles.module.css';
 
-const Form = ({ onAddTodo }) => {
+const Form = ({ onAddTodo, onFetchTodo }) => {
   // State
   const [todo, setTodo] = useState('');
   const [showError, setShowError] = useState(false);
@@ -27,6 +27,7 @@ const Form = ({ onAddTodo }) => {
 
     onAddTodo(newTodo);
     setTodo('');
+    onFetchTodo();
   };
 
   const onChangeHandler = (event) => {

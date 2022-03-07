@@ -16,8 +16,7 @@ const App = () => {
       content: todo.content
     }); // req.body.content
 
-    // setTodos((prevState) => [...prevState, todo]);
-    window.location.reload(true);
+    setTodos(todo);
   };
 
   const fetchTodos = async () => {
@@ -32,33 +31,12 @@ const App = () => {
     await axios.patch(`http://localhost:4000/api/v1/todos/${id}`, {
       content: newContent
     });
-    /*
-    setTodos((prevState) => {
-      const currentTodos = prevState;
-
-      const todoIndex = currentTodos.findIndex((todo) => +todo.id === +id);
-
-      const updatedTodo = currentTodos[todoIndex];
-
-      updatedTodo.content = newContent;
-
-      currentTodos[todoIndex] = updatedTodo;
-
-      return [...currentTodos];
-    });*/
   };
 
   const deleteTodo = async (id) => {
     await axios.delete(`http://localhost:4000/api/v1/todos/${id}`);
-    /*
-    setTodos((prevState) => {
-      const currentTodos = prevState;
 
-      const updatedTodos = currentTodos.filter((todo) => +todo.id !== +id);
-
-      return [...updatedTodos];
-    });*/
-    window.location.reload(true);
+    fetchTodos();
   };
 
   // When component is mounted, fetch todos
@@ -68,7 +46,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <Form onAddTodo={addTodo} />
+      <Form onAddTodo={addTodo} onFetchTodo={fetchTodos} />
       <TodoList onDeleteTodo={deleteTodo} onEditTodo={editTodo} items={todos} />
     </div>
   );

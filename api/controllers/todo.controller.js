@@ -41,9 +41,10 @@ exports.postNewTodo = async (req, res) => {
 // Patch update Todo given an Id
 exports.patchIdTodo = async (req, res) => {
   try {
+    //Variables
     const { id } = req.params;
     const { content } = req.body;
-    // const modifiedTodo = filterObj(req.body, 'content');
+    const newContent = { content: content };
     const todo = await Todo.findOne({
       where: { id: id, status: 'active' }
     });
@@ -56,7 +57,7 @@ exports.patchIdTodo = async (req, res) => {
       return;
     }
 
-    await todo.update({ ...content });
+    await todo.update({ ...newContent });
 
     res.status(204).json({ status: 'success' });
   } catch (error) {
